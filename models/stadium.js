@@ -13,6 +13,10 @@ const stadiumSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  price: {
+    type: Number,
+    required: true
+  },
   information: {
     type: String,
   },

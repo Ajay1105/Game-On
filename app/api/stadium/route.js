@@ -5,13 +5,14 @@ import connectDB from "../mongodb/connectDB";
 export async function POST(req, res) {
   try {
     await connectDB();
-    const { name, location, capacity, information } = req.body;
-
+    const body = await req.json();
+    console.log(body);
     const newStadium = new Stadium({
-      name,
-      location,
-      capacity,
-      information,
+      name: body.name,
+      location: body.location,
+      capacity: body.capacity,
+      information: body.information,
+      price: body.price,
     });
 
     await newStadium.save();

@@ -1,0 +1,51 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    padding:0 5rem;
+    align-items: center;
+    font-family: poppins;
+    font-weight: 300;
+    font-style: italic;
+    /* border: 2px solid red; */
+}
+.logo{
+    width: 15vw;
+}
+.item{
+    position: relative;
+    cursor: pointer;
+}
+.item::after{
+    content: '';
+    display: block;
+    margin-top: 0.2rem;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s;
+}
+.item:hover::after{
+    width: 100%;
+}
+
+.menu-container{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+.menu{
+    display: flex;
+    gap: 1.5rem;
+}
+.button{
+    background-color: white;
+    color: #28282B;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    transition: box-shadow 0.2s;
+    font-weight: 500;
+}
+.button:hover{
+    box-shadow: 0 0 10px 2px rgba(242, 239, 239, 0.7);
+}
