@@ -1,6 +1,6 @@
 .fullCard-container{
     /* min-height: 100vh; */
-    background-color: #28282B;
+    background-color: #000000;
     display: flex;
     justify-content: center;
     padding: 2rem 1rem;
@@ -71,7 +71,7 @@
     padding: 0.5rem 3rem;
     border-radius: 5px;
     background-color: #fff;
-    color: #28282B;
+    color: #000000;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;

@@ -56,33 +56,34 @@ export default function page({ params }) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        console.log('Booked for the slot')
       });
     }
   console.log(bookedSlots);
   return (
-    <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-4">Stadium Booking</h1>
-      <div className="flex mb-4">
-        <label htmlFor="date" className="mr-2">
+    <div className="mx-auto">
+      <h1 className="text-8xl font-bold mb-4 pt-8 w-full flex justify-center">Stadium Booking</h1>
+      <div className="flex items-center justify-center mb-4 mt-10">
+        <label htmlFor="date" className="mr-2 text-2xl">
           Select Date:
         </label>
-        <input type="date" id="date" onChange={handleDateChange} />
+        <input type="date" id="date" className="text-black px-5 py-2 rounded-sm cursor-pointer" onChange={handleDateChange} />
       </div>
       {selectedDate && (
-        <div>
-          <h2 className="text-xl font-semibold mb-2">
-            Available Slots for {selectedDate}:
+        <div className="flex justify-center items-center flex-col">
+          <h2 className="text-2xl font-semibold mb-2 mt-5">
+            Available Slots at {selectedDate}
           </h2>
-          <ul>
+          <ul className="flex justify-start pl-20 mt-10 w-[85%] mx-auto flex-wrap gap-8 gap-y-10">
             {availableSlots.map((slot, index) => (
               <li key={index} className="flex items-center mb-2">
                 <span className="mr-2">{slot.time}</span>
                 {slot.available ? (
-                  <button className="px-4 py-2 bg-green-500 text-white rounded-md" onClick={()=>bookSlot(slot.time)}>
+                  <button className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-sm" onClick={()=>bookSlot(slot.time)}>
                     Book Now
                   </button>
                 ) : (
-                  <span className="text-red-500">Not Available</span>
+                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-sm cursor-pointer">Not Available</span>
                 )}
               </li>
             ))}
