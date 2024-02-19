@@ -18,11 +18,13 @@ export default function page({ params }) {
   const [bookedSlots, setBookedSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
+  const [stadiumInfo, setstadiumInfo] = useState({})
 
   useEffect(() => {
     fetch(`/api/stadium/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
+        setstadiumInfo(data);
         setBookedSlots(data.bookedSlots);
       });
   }, [isBooked, params.id, selectedDate]);
@@ -93,6 +95,7 @@ export default function page({ params }) {
           onChange={handleDateChange}
         />
       </div>
+      <p className=" text-xl font-medium pl-32">Price: {stadiumInfo.price} per Hour</p>
       {selectedDate && (
         <div className="flex justify-center items-center flex-col">
           <h2 className="text-2xl font-semibold mb-2 mt-5">
