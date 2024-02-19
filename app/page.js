@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetch("http://localhost:3000/api/stadium", {
+        await fetch("api/stadium", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

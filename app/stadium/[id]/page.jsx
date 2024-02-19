@@ -16,7 +16,7 @@ const page = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetch(`http://localhost:3000/api/stadium/${params.id}`, {
+        await fetch(`api/stadium/${params.id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
