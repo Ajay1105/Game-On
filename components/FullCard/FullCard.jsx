@@ -1,7 +1,14 @@
+"use client"
 import Image from "next/image";
 import "./index.css";
+import { useRouter } from "next/navigation";
 
-const FullCard = () => {
+const FullCard = ({params}) => {
+  const router = useRouter();
+  const handleClick = () => {
+    console.log(params);
+    //router.push(`/stadium/book/${params.id}`);
+  };
   return (
     <div className="fullCard-container">
       <div className="inside">
@@ -28,7 +35,7 @@ const FullCard = () => {
             </div>
           </div>
         </div>
-        <button className="slots">View Available slots</button>
+        <button className="slots" onClick={handleClick}>View Available slots</button>
       </div>
     </div>
   );
