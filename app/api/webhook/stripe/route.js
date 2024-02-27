@@ -2,7 +2,6 @@
 import { createTransaction } from "@/app/actions/transaction.action";
 import { NextResponse } from "next/server";
 import stripe from "stripe";
-import { currentUser } from "@clerk/nextjs";
 import User from "@/models/user.js";
 import connectDB from "../../mongodb/connectDB.js";
 
@@ -29,6 +28,7 @@ export async function POST(request, Response) {
   // CREATE
   if (eventType === "checkout.session.completed") {
     const { id, amount, metadata } = event.data.object;
+    console.log("log", event.data.object);
     const email = metadata?.email || "";
     try {
       await connectDB();
