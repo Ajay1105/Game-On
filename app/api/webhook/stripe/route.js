@@ -21,15 +21,15 @@ export async function POST(request, Response) {
   //   return NextResponse.json({ message: "Webhook error", error: err });
   // }
 
-  try {
-    await connectDB();
+  // try {
+  //   await connectDB();
     
-    const user = await currentUser();
-    const email = user.emailAddresses[0].emailAddress;
-    const foundUser = await User.findOne({ email });
-  } catch (error) {
-    return NextResponse.json({ message: "User not found", error: error });
-  }
+  //   const user = await currentUser();
+  //   const email = user.emailAddresses[0].emailAddress;
+  //   const foundUser = await User.findOne({ email });
+  // } catch (error) {
+  //   return NextResponse.json({ message: "User not found", error: error });
+  // }
   // Get the ID and type
   const eventType = event.type;
 
@@ -42,7 +42,7 @@ export async function POST(request, Response) {
       amount: amount ,
       stadiumId: metadata?.stadiumId || "",
       time: Date(metadata?.time) || 0,
-      buyerId: foundUser._id || "",
+      buyerId:  "qscgy",
       createdAt: new Date(),
     };
 
