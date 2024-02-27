@@ -6,7 +6,7 @@ import { currentUser } from "@clerk/nextjs";
 import User from "@/models/user.js";
 import connectDB from "../../mongodb/connectDB.js";
 
-export async function POST(request) {
+export async function POST(request, Response) {
   console.log("Webhook received");
   const body = await request.text();
   const bodyjson = await request.json();
