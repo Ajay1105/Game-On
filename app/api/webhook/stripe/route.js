@@ -27,8 +27,8 @@ export async function POST(request, Response) {
 
   // CREATE
   if (eventType === "checkout.session.completed") {
-    const { id, amount, metadata } = event.data.object;
-    console.log("log", event.data.object);
+    const { id, amount_total, metadata } = event.data.object;
+   // console.log("log", event.data.object);
     const email = metadata?.email || "";
     try {
       await connectDB();
@@ -39,7 +39,7 @@ export async function POST(request, Response) {
 
     const transaction = {
       stripeId: id,
-      amount: amount ,
+      amount: amount_total/100 ,
       stadiumId: metadata?.stadiumId || "",
       time: Date(metadata?.time) || 0,
       buyerId:  foundUser._id || "",
