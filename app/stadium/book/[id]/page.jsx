@@ -105,7 +105,6 @@ export default function page({ params }) {
         time.replace(" AM", ":00").replace(" PM", ":00") +
         ".000Z",
     };
-
     await checkoutCredits(transaction);
   };
 

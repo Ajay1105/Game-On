@@ -21,9 +21,10 @@ export async function checkoutCredits(transaction) {
         quantity: 1,
       },
     ],
-    matadata: {
+    metadata: {
       transactionId: transaction.id,
-      buyerId: transaction.buyerId,
+      stadiumId: transaction.stadiumId,
+      time: transaction.time,
     },
     mode: 'payment',
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}?success=true`,
@@ -34,7 +35,7 @@ redirect(session.url)
 
 export async function createTransaction(transaction) {
   try {
-    console.log("Creating transaction");
+    console.log("Creating transaction", transaction);
     await connectDB();
 
     const newTransaction = await Transaction.create({
