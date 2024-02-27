@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import stripe from "stripe";
 import { currentUser } from "@clerk/nextjs";
 import User from "@/models/user.js";
-import connectDB from "../mongodb/connectDB";
+import connectDB from "../../mongodb/connectDB.js";
 
 export async function POST(request) {
   console.log("Webhook received");

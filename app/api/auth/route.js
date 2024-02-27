@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import User from "@/models/user.js";
-import connectDB from "../mongodb/connectDB";
+import connectDB from "../mongodb/connectDB.js";
 
 export async function POST(req, res) {
   try {
