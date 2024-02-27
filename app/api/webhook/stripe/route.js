@@ -11,7 +11,7 @@ export async function POST(request, Response) {
   const body = await request.text();
 
   const sig = String(request.headers.get("stripe-signature"));
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const endpointSecret = process.env.WEBHOOK_STRIPE_SECRET;
 
   let event;
 
