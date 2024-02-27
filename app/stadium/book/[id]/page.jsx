@@ -2,6 +2,9 @@
 import { UserButton } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 
+import { loadStripe } from "@stripe/stripe-js";
+import { checkoutCredits } from "@/app/actions/transaction.action.js";
+
 const slots = [
   { time: "09:00 AM", available: true },
   { time: "10:00 AM", available: true },
@@ -18,7 +21,11 @@ export default function page({ params }) {
   const [bookedSlots, setBookedSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
-  const [stadiumInfo, setstadiumInfo] = useState({})
+  const [stadiumInfo, setstadiumInfo] = useState({});
+
+  useEffect(() => {
+    loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+  }, []);
 
   useEffect(() => {
     fetch(`/api/stadium/${params.id}`)
@@ -46,33 +53,60 @@ export default function page({ params }) {
     );
   };
 
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      alert("Your slot has been booked successfully");
+      // fetch(`/api/stadium/book`, {
+      //   method: "PATCH",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     id: params.id,
+      //     startTime:
+      //       selectedDate +
+      //       "T" +
+      //       time.replace(" AM", ":00").replace(" PM", ":00") +
+      //       ".000Z",
+      //     endTime:
+      //       selectedDate +
+      //       "T" +
+      //       time.replace(" AM", ":00").replace(" PM", ":00") +
+      //       ".000Z",
+      //   }),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     console.log("Booked for the slot");
+      //   });
+      // setIsBooked(true);
+
+      // setSelectedDate(null);
+    }
+    if (query.get("canceled")) {
+      alert("Order canceled!");
+    }
+  }, []);
+  
   const bookSlot = (time) => {
-    fetch(`/api/stadium/book`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: params.id,
-        startTime:
-          selectedDate +
-          "T" +
-          time.replace(" AM", ":00").replace(" PM", ":00") +
-          ".000Z",
-        endTime:
-          selectedDate +
-          "T" +
-          time.replace(" AM", ":00").replace(" PM", ":00") +
-          ".000Z",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        console.log("Booked for the slot");
-      });
-    setIsBooked(true);
-    setSelectedDate(null);
+    onCheckout(time);
+  };
+
+  const onCheckout = async (time) => {
+    const transaction = {
+      plan: stadiumInfo.name,
+      stadiumId: stadiumInfo._id,
+      amount: stadiumInfo.price,
+      time:
+        selectedDate +
+        "T" +
+        time.replace(" AM", ":00").replace(" PM", ":00") +
+        ".000Z",
+    };
+
+    await checkoutCredits(transaction);
   };
 
   return (
@@ -95,7 +129,9 @@ export default function page({ params }) {
           onChange={handleDateChange}
         />
       </div>
-      <p className=" text-xl font-medium pl-32">Price: {stadiumInfo.price} per Hour</p>
+      <p className=" text-xl font-medium pl-32">
+        Price: {stadiumInfo.price} per Hour
+      </p>
       {selectedDate && (
         <div className="flex justify-center items-center flex-col">
           <h2 className="text-2xl font-semibold mb-2 mt-5">
