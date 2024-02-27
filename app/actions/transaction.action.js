@@ -25,6 +25,7 @@ export async function checkoutCredits(transaction) {
       transactionId: transaction.id,
       stadiumId: transaction.stadiumId,
       time: transaction.time,
+      email: transaction.email,
     },
     mode: 'payment',
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}?success=true`,

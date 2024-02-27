@@ -1,7 +1,7 @@
 "use client";
 import { UserButton } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
-
+import { currentUser } from '@clerk/nextjs';
 import { loadStripe } from "@stripe/stripe-js";
 import { checkoutCredits } from "@/app/actions/transaction.action.js";
 
@@ -16,12 +16,15 @@ const slots = [
   { time: "04:00 AM", available: true },
 ];
 
-export default function page({ params }) {
+export default async function page({ params }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [bookedSlots, setBookedSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({});
+
+  const user = await currentUser();
+  const email = user.emailAddresses[0].emailAddress;
 
   useEffect(() => {
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -104,6 +107,7 @@ export default function page({ params }) {
         "T" +
         time.replace(" AM", ":00").replace(" PM", ":00") +
         ".000Z",
+      email:email,
     };
     await checkoutCredits(transaction);
   };

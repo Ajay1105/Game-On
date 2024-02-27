@@ -23,22 +23,19 @@ export async function POST(request, Response) {
 
   let foundUser;
   
-  try {
-    await connectDB();
-    
-    const user = await currentUser();
-    console.log(user);
-    const email = user.emailAddresses[0].emailAddress;
-    foundUser = await User.findOne({ email });
-  } catch (error) {
-    return NextResponse.json({ message: "User not found", error: error });
-  }
   // Get the ID and type
   const eventType = event.type;
 
   // CREATE
   if (eventType === "checkout.session.completed") {
     const { id, amount, metadata } = event.data.object;
+    const email = metadata?.email || "";
+    try {
+      await connectDB();
+      foundUser = await User.findOne({ email });
+    } catch (error) {
+      return NextResponse.json({ message: "User not found", error: error });
+    }
 
     const transaction = {
       stripeId: id,
