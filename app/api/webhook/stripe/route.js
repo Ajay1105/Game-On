@@ -15,11 +15,11 @@ export async function POST(request, Response) {
 
   let event;
 
-  try {
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
-  } catch (err) {
-    return NextResponse.json({ message: "Webhook error", error: err });
-  }
+  // try {
+  //   event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+  // } catch (err) {
+  //   return NextResponse.json({ message: "Webhook error", error: err });
+  // }
 
   try {
     await connectDB();
