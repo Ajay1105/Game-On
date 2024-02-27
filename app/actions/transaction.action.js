@@ -40,7 +40,7 @@ export async function createTransaction(transaction) {
     await connectDB();
 
     const newTransaction = await Transaction.create({
-        buyer:transaction.buyerId,
+        buyerId:transaction.buyerId,
         amount: transaction.amount,
         stadiumId: transaction.stadiumId,
         time: transaction.time,
