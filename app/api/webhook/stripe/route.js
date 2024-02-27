@@ -9,8 +9,7 @@ import connectDB from "../../mongodb/connectDB.js";
 export async function POST(request, Response) {
   console.log("Webhook received");
   const body = await request.text();
-  const bodyjson = await request.json();
-  console.log(body, bodyjson);
+  console.log(request);
 
   const sig = request.headers.get("stripe-signature");
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
