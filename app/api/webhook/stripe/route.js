@@ -21,12 +21,15 @@ export async function POST(request, Response) {
     return NextResponse.json({ message: "Webhook error", error: err });
   }
 
+  let foundUser;
+  
   try {
     await connectDB();
     
     const user = await currentUser();
+    console.log(user);
     const email = user.emailAddresses[0].emailAddress;
-    const foundUser = await User.findOne({ email });
+    foundUser = await User.findOne({ email });
   } catch (error) {
     return NextResponse.json({ message: "User not found", error: error });
   }
