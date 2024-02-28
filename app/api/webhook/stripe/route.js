@@ -41,7 +41,7 @@ export async function POST(request, Response) {
       stripeId: id,
       amount: amount_total/100 ,
       stadiumId: metadata?.stadiumId || "",
-      time: Date(metadata?.time) || 0,
+      time: metadata?.time || 0,
       buyerId:  foundUser._id || "",
       createdAt: new Date(),
     };
