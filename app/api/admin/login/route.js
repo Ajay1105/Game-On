@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import StadiumAdmin from "@/models/transaction.js";
-import connectDB from "../mongodb/connectDB.js";
+import connectDB from "../../mongodb/connectDB.js";
 
 export async function GET(req, res) {
     const body = await req.json();
