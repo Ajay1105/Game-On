@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+import Transaction from './transaction.js';
 
 const stadiumSchema = new mongoose.Schema({
   name: {
@@ -22,7 +23,8 @@ const stadiumSchema = new mongoose.Schema({
   },
   bookedSlots: [{
     startTime:{type: Date},
-    endTime:{type:Date},
+    transactionId: {'type':mongoose.Schema.Types.ObjectId, 
+    'ref':'Transaction'},
   }]
 });
 
