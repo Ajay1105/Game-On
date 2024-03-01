@@ -52,7 +52,7 @@ export async function createTransaction(transaction) {
       startTime: transaction.time,
       transactionId: newTransaction._id,
     });
-    stadium.save();
+    await stadium.save();
 
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {}

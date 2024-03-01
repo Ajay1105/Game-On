@@ -25,7 +25,8 @@ const stadiumSchema = new mongoose.Schema({
     startTime:{type: Date},
     transactionId: {'type':mongoose.Schema.Types.ObjectId, 
     'ref':'Transaction'},
-  }]
+  }],
+  photos: [{type: String}]
 });
 
 const Stadium = mongoose.models.Stadium || mongoose.model('Stadium', stadiumSchema);
