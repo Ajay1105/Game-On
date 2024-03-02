@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import StadiumAdmin from "@/models/transaction.js";
+import StadiumAdmin from "@/models/stadiumAdmin.js";
 import connectDB from "../../mongodb/connectDB.js";
 
-export async function GET(req, res) {
+export async function POST(req, res) {
     const body = await req.json();
 
     try {
         await connectDB();
-        const foundAdmin = await StadiumAdmin.find({email:body.email});
+        const foundAdmin = await StadiumAdmin.find({email:body.email}).exec();
         if(!foundAdmin) {
             return NextResponse.json(
                 {
@@ -16,19 +16,21 @@ export async function GET(req, res) {
                 { status: 404 }
             );
         }
-        if(foundAdmin.password === body.password) {
+        
+        if(foundAdmin[0].password === body.password) {
             return NextResponse.json(
                 {
-                    message: "Admin found",
+                    message: foundAdmin[0].stadiumId.toString(),
                 },
                 { status: 200 }
-            );
-        } else {
+                );
+            } else {
+            
             return NextResponse.json(
                 {
                     message: "Password incorrect",
                 },
-                { status: 401 }
+                { status: 404 }
             );
         }
     } catch (error) {

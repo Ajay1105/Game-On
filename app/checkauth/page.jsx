@@ -12,7 +12,7 @@ const page = async () => {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        if (res.status === 200) {
+        if (res.ok) {
           console.log("success");
         } else {
           console.log("fail");
