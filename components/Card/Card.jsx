@@ -11,9 +11,9 @@ const Card = ({ heading, id, location }) => {
   
   return (
     <div className="card">
-      <img src={`./stadium${Math.floor(Math.random() * 4) + 1}.jpg`} alt="stadim" onClick={handleClick} className=" h-80 w-80"/>
+      <img src={`./stadium${Math.floor(Math.random() * 4) + 1}.jpg`} alt="stadium" onClick={handleClick} className=" h-80 w-80"/>
       <div className="heading">{heading}</div>
-      <div className="heading">{location}</div>
+      <div className="sub-heading">{location}</div>
     </div>
   );
 };

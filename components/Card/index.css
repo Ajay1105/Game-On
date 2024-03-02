@@ -8,8 +8,23 @@
     /* justify-content: center; */
     align-items: center;
 }
+@media screen and (max-width: 1024px){
+    .card{
+        width: 70%;
+        margin-top: 1rem;
+    }
+    .heading{
+        font-size: 1.2rem;
+    }
+}
+
 .heading{
     font-size: 1.2rem;
     font-weight: 500;
     color: white;
+}
+.sub-heading{
+    font-size:1rem;
+    color: white;
+    font-weight: 200;
 }

@@ -43,7 +43,7 @@ const Page = () => {
       )}
       {isLoading ? (
         <div>Loading...</div>
-      ) : (
+      ) : transactions && (
         transactions.length > 0 && (
           <div>
             <p>Bookings</p>
