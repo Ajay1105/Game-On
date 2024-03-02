@@ -1,4 +1,3 @@
-import Stadium from './stadium.js';
 const mongoose = require('mongoose');
 
 const stadiumadmin = new mongoose.Schema({
