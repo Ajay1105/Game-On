@@ -6,7 +6,7 @@ import User from '@/middleware/user.js';
 // CREATE
 export async function createUser(user) {
   try {
-    await connectToDatabase();
+    await connectDB();
 
     const newUser = await User.create(user);
 
