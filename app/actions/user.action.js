@@ -7,7 +7,7 @@ import User from '@/models/user.js';
 export async function createUser(user) {
   try {
     await connectDB();
-
+    console.log("inside createUser action");
     const newUser = await User.create(user);
 
     return JSON.parse(JSON.stringify(newUser));

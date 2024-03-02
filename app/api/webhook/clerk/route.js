@@ -7,6 +7,7 @@ import { Webhook } from "svix";
 import { createUser } from "@/app/actions/user.action.js";
 
 export async function POST(req) {
+  console.log("inside webhook clerk")
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
