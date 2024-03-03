@@ -27,7 +27,7 @@ const Navbar = () => {
 
         <div className="menu-container">
             <ul className={`menu ${menuOpen ? 'open' : ''}`}>
-            <li className='item'><a href="/">Events</a></li>
+            <li className='item'><a href="/user">Bookings</a></li>
             <li className='item'><a href="/">About Us</a></li>
             <li className='item'><a href="/">Gallery</a></li>
             <li className='item'><a href="/contact">Contact Us</a></li>
