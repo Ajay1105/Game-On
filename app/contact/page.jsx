@@ -1,22 +1,22 @@
 import Navbar from "@/components/Navbar/Navbar";
+import './index.css'
 
 const Contact = () => {
     return (
       <>
       <Navbar/>
         <div className="py-10 w-full flex justify-center items-center flex-col ">
-          <p className="text-3xl font-bold mb-2">Game On</p>
-          <p className="text-3xl font-bold mb-6">Contact Us</p>
-          <p className="text-lg mb-4">Feel free to contact us</p>
+          <div className="text-3xl font-bold mt-7 mb-20 contact-heading">Contact Us</div>
+          <div className="text-lg mb-20 contact-subheading">Feel free to contact us</div>
           <div className="text-white p-6 rounded-md shadow-md">
-            <p className="mb-2">
-              <span className="font-semibold">Name:</span> Shivam Tiwari
+            <p className="mb-4 name">
+              <span className="font-bold ">Name:</span> <span className="font-light">Shivam Tiwari</span>
             </p>
-            <p className="mb-2">
-              <span className="font-semibold">Email:</span> help@gameon.com
+            <p className="mb-4 email">
+              <span className="font-bold ">Email:</span> <span className="font-light">help@gameon.com</span>
             </p>
-            <p className="mb-2">
-              <span className="font-semibold">Contact No:</span> +91 2434890983
+            <p className="mb-4 number">
+              <span className="font-bold ">Contact No:</span> <span className="font-light">+91 2434890983</span>
             </p>
           </div>
         </div>

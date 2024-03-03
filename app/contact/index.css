@@ -1,0 +1,35 @@
+.contact-heading{
+    font-size: 8rem;
+}
+.contact-subheading{
+    font-size: 2rem;
+}
+.name,.email,.number{
+    font-size: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .contact-heading{
+        font-size: 6rem;
+        margin-bottom: 3rem;
+    }
+    .contact-subheading{
+        font-size: 1.5rem;
+    }
+    .name,.email,.number{
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .contact-heading{
+        font-size: 3.5rem;
+        margin-bottom: 2rem;
+    }
+    .contact-subheading{
+        font-size: 1rem;
+    }
+    .name,.email,.number{
+        font-size: 1rem;
+    }
+}
