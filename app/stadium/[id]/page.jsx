@@ -39,13 +39,13 @@ const page = ({ params }) => {
   const handleClick = () => {
     router.push(`/stadium/book/${params.id}`);
   };
-  
+
   return (
     <div className="fullCard-container">
       <div className="inside">
         <div className="flex mt-8 mb-5 justify-end w-full">
-          <p className=" font-medium text-xl mr-5">Welcome {" "} </p>
-        <UserButton />
+          <p className=" font-medium text-xl mr-5">Welcome </p>
+          <UserButton />
         </div>
         {/* <img className="image" src="./stadium1.jpg" /> */}
         <Image
@@ -55,11 +55,37 @@ const page = ({ params }) => {
           height={800}
           className="image"
         />
-        <div className="stadium">{stadiums.name}</div>
-        <div className="subheading">{stadiums.location}</div>
-        <div className="timing">Capacity: {stadiums.capacity}</div>
-        <div className="timing">Price: {stadiums.price} per Hour</div>
-        <div className="description">{stadiums.information}</div>
+        <div className="stadium-info">
+          <p>
+            <b>Ground name</b> - Cricket world
+          </p>
+          <p>
+            <b>Address</b>- Verka Milk Plant Road, near Fair Farm Marriage
+            Palace, Jalandhar, Punjab 144001
+          </p>
+          <p>
+            <b>Description</b>: Cricket World, the ultimate sports destination
+            for box cricket ,is open 24/7. With dimensions spanning 120x60, it's
+            the ideal locationfor cricket enthusiasts. Come, play, have fun &
+            compete among your friends in your favourite sport.
+          </p>
+          <p>
+            <b>Turfs</b> <br /> Area-120 x 60
+          </p>
+          <p>
+            <b>Venue facilities</b>: <br />
+            1. Changing room <br />
+            2. Washroom <br />
+            3. Parking <br />
+          </p>
+          <p>
+            <b>Prohibition</b>:<br />
+            No alcohol <br />
+            No Smoking <br />
+            No spitting
+            <br />
+          </p>
+        </div>
         <div className="sports-container">
           <div className="sports-heading">Sports</div>
           <div className="sports">

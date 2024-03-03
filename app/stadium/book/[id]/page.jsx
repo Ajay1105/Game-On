@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { loadStripe } from "@stripe/stripe-js";
 import { checkoutCredits } from "@/app/actions/transaction.action.js";
+import "./index.css";
 
 const slots = [
   { time: "09:00 AM", available: true },
@@ -117,29 +118,31 @@ export default function page({ params }) {
   return (
     <div className="mx-auto">
       <div className="flex mt-8 mb-5 pr-20 justify-end w-full">
-        <p className=" font-medium text-xl mr-5">Welcome </p>
+        <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
         <UserButton />
       </div>
-      <h1 className="text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
+      <h1 className="stadium-heading text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
         Stadium Booking
       </h1>
-      <div className="flex items-center justify-center mb-4 mt-10">
-        <label htmlFor="date" className="mr-2 text-2xl">
-          Select Date:
-        </label>
-        <input
-          type="date"
-          id="date"
-          className="text-black px-5 py-2 rounded-sm cursor-pointer"
-          onChange={handleDateChange}
-        />
+      <div className="stadium-details flex flex-col items-center gap-4 justify-center mb-4 mt-10">
+        <div className="taarik">
+          <label htmlFor="date" className="stadium-subheading mr-2 text-2xl">
+            Select Date:
+          </label>
+          <input
+            type="date"
+            id="date"
+            className="text-black px-5 py-2 rounded-sm cursor-pointer stadium-subheading"
+            onChange={handleDateChange}
+          />
+        </div>
+        <p className="stadium-subheading price text-xl font-medium">
+          Price: {stadiumInfo.price} per Hour
+        </p>
       </div>
-      <p className=" text-xl font-medium pl-32">
-        Price: {stadiumInfo.price} per Hour
-      </p>
       {selectedDate && (
         <div className="flex justify-center items-center flex-col">
-          <h2 className="text-2xl font-semibold mb-2 mt-5">
+          <h2 className="stadium-subheading text-2xl font-semibold mb-2 mt-5">
             Available Slots at {selectedDate}
           </h2>
           <ul className="flex justify-start pl-20 mt-10 w-[85%] mx-auto flex-wrap gap-8 gap-y-10">
@@ -148,13 +151,13 @@ export default function page({ params }) {
                 <span className="mr-2">{slot.time}</span>
                 {slot.available ? (
                   <button
-                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-sm"
+                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-sm stadium-subheading book-button"
                     onClick={() => bookSlot(slot.time)}
                   >
                     Book Now
                   </button>
                 ) : (
-                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-sm cursor-pointer">
+                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-sm cursor-pointer stadium-subheading book-button">
                     Not Available
                   </span>
                 )}
