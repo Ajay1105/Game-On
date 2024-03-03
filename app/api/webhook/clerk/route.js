@@ -6,7 +6,7 @@ import { Webhook } from "svix";
 
 import { createUser } from "@/app/actions/user.action.js";
 
-export async function POST(req) {
+export async function POST(req,res) {
   console.log("inside webhook clerk")
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
@@ -86,6 +86,7 @@ export async function POST(req) {
   return new Response("", { status: 200 });
 }
 
-export async function GET() {
+export async function GET(req,res) {
+  console.log("inside webhook clerk get method");
   return NextResponse.json({ message: "OK" });
 }

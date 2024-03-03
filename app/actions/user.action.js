@@ -1,6 +1,6 @@
 "use server";
 
-import {connectDB} from '@/app/api/mongodb/connectDB.js';
+import connectDB from '@/app/api/mongodb/connectDB.js';
 import User from '@/models/user.js';
 
 // CREATE
