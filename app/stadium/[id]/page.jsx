@@ -72,19 +72,58 @@ const page = ({ params }) => {
           <p>
             <b>Turfs</b> <br /> Area-120 x 60
           </p>
-          <p>
-            <b>Venue facilities</b>: <br />
-            1. Changing room <br />
-            2. Washroom <br />
-            3. Parking <br />
-          </p>
-          <p>
-            <b>Prohibition</b>:<br />
-            No alcohol <br />
-            No Smoking <br />
-            No spitting
-            <br />
-          </p>
+          <div>
+            <p className=" text-2xl italic">Venue facilities</p>
+            <div className=" my-5 flex flex-wrap gap-4">
+              <div>
+                <img
+                  src="../icons/box_cricket_icon.png"
+                  className="bg-white size-20 rounded-full ring-3"
+                />
+                <p>Box Cricket</p>
+              </div>
+              <div>
+                <img
+                  src="../icons/parking_icon.jpg"
+                  className="bg-white size-20 rounded-full ring-3"
+                />
+                <p>Parking</p>
+              </div>
+              <div className="w-[5rem]">
+                <img
+                  src="../icons/changing_room_icon.jpg"
+                  className="bg-white size-20 rounded-full ring-3"
+                />
+                <p className=" text-center">Changing Room</p>
+              </div>
+              <div>
+                <img
+                  src="../icons/washroom_icon.png"
+                  className="bg-white size-20 rounded-full ring-3"
+                />
+                <p>Washroom</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p className=" text-2xl italic">Prohibition</p>
+            <div className=" my-5 flex flex-wrap gap-4">
+              <div>
+                <img
+                  src="../icons/No_spitting_icon.webp"
+                  className="bg-white size-20 rounded-full ring-3"
+                />
+                <p>No Spitting</p>
+              </div>
+              <div>
+                <img
+                  src="../icons/No_alcohol_icon.jpg"
+                  className="bg-white size-20 rounded-full ring-3"
+                />
+                <p>No Alcohol</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="sports-container">
           <div className="sports-heading">Sports</div>

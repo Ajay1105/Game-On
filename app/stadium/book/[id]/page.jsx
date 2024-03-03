@@ -118,11 +118,11 @@ export default function page({ params }) {
 
   return (
     <div className="mx-auto">
-      <Navbar />
-      <div className="flex mt-8 mb-5 pr-20 justify-end w-full">
-        <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
-        <UserButton />
-      </div>
+    <div className="flex mt-5 pr-12 md:pr-24 justify-end w-full">
+    <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
+    <UserButton />
+    </div>
+    <Navbar />
       <h1 className="stadium-heading text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
         Stadium Booking
       </h1>
