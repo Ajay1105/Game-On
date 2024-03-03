@@ -10,7 +10,7 @@ export async function PATCH(req, res) {
     await connectDB();
     const body = await req.json();
     const user = await currentUser();
-    const email = "erajayky@gmail.com"//user.emailAddresses[0].emailAddress;
+    const email = user.emailAddresses[0].emailAddress;
 
     const stadium = await Stadium.findById(body.id);
     

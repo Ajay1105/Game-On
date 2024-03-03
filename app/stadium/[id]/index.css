@@ -37,10 +37,10 @@
     font-size: 1.1rem;
 }
 .cricket{
-    width:20%;
+    width:60px;
 }
 .football{
-    width: 20%;
+    width: 60px;
 }
 .sports-container{
     display: flex;

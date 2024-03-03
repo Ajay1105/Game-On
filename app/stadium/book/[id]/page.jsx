@@ -5,6 +5,7 @@ import { useUser } from "@clerk/clerk-react";
 import { loadStripe } from "@stripe/stripe-js";
 import { checkoutCredits } from "@/app/actions/transaction.action.js";
 import "./index.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 const slots = [
   { time: "09:00 AM", available: true },
@@ -117,6 +118,7 @@ export default function page({ params }) {
 
   return (
     <div className="mx-auto">
+      <Navbar />
       <div className="flex mt-8 mb-5 pr-20 justify-end w-full">
         <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
         <UserButton />

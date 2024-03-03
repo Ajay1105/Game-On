@@ -49,10 +49,10 @@ const page = ({ params }) => {
         </div>
         {/* <img className="image" src="./stadium1.jpg" /> */}
         <Image
-          src="/stadium3.jpg"
+          src="/cricket.jpg"
           alt="Picture of the author"
-          width={900}
-          height={800}
+          width={600}
+          height={300}
           className="image"
         />
         <div className="stadium-info">
@@ -100,7 +100,7 @@ const page = ({ params }) => {
               {/* <img className="cricket" src="./cricket.svg" /> */}
               <div className="title">Cricket</div>
             </div>
-            <div className="football">
+            <div className="football ml-12 md:ml-40">
               <Image
                 src="/football.svg"
                 alt="Picture of the author"

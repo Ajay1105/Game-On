@@ -5,6 +5,7 @@ import Stripe from "stripe";
 import connectDB from "../api/mongodb/connectDB.js";
 import Transaction from "@/models/transaction.js";
 import Stadium from "@/models/stadium.js";
+import User from "@/models/user.js";
 
 export async function checkoutCredits(transaction) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -79,6 +80,13 @@ export async function createTransaction(transaction) {
           console.log("Booked for the slot");
         });
 
+        const user = await User.findById(transaction.buyerId);
+        user.bookedSlots.push(newTransaction._id);
+        user.save();
+
     return JSON.parse(JSON.stringify(newTransaction));
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error creating transaction", error);
+    return { error: error.message };
+  }
 }

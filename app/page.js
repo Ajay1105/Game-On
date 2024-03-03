@@ -31,9 +31,10 @@ export default function Home() {
     <div className="container">
       <Navbar />
       <div className="card-container"> 
-        {stadiums.map((stadium) => (
+        {/*stadiums.map((stadium) => (
           <Card key={stadium.id} heading={stadium.name} id={stadium._id} location={stadium.location}/>
-        ))}
+        ))*/}
+        <Card key={"stadium.id"} heading={"Cricket world "} id={"65e3ff42d02e44dfa7bdd90c"} location={" Verka Milk Plant Road, near Fair Farm Marriage Palace, Jalandhar, Punjab 144001"}/>
       </div>
     </div>
   );
