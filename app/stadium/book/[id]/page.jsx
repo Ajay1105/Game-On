@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { checkoutCredits } from "@/app/actions/transaction.action.js";
 import "./index.css";
 import Navbar from "@/components/Navbar/Navbar";
+import { createUser } from "@/app/actions/user.action.js";
 
 const slots = [
   { time: "09:00 AM", available: true },
@@ -24,6 +25,7 @@ export default function page({ params }) {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({});
+  const { user, isSignedIn } = useUser();
 
   useEffect(() => {
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -54,6 +56,21 @@ export default function page({ params }) {
       })
     );
   };
+
+  useEffect(() => {
+    const create = async () => {
+      if (user) {
+        const user2 = {
+          email: user.emailAddresses[0].emailAddress,
+          name: user.fullName,
+        };
+
+        await createUser(user2);
+      }
+
+    };
+    create();
+  }, [user]);
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -95,7 +112,6 @@ export default function page({ params }) {
   const bookSlot = (time) => {
     onCheckout(time);
   };
-  const { user, isSignedIn } = useUser();
 
   let email;
   if (isSignedIn) {
@@ -118,11 +134,11 @@ export default function page({ params }) {
 
   return (
     <div className="mx-auto">
-    <div className="flex mt-5 pr-12 md:pr-24 justify-end w-full">
-    <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
-    <UserButton />
-    </div>
-    <Navbar />
+      <div className="flex mt-5 pr-12 md:pr-24 justify-end w-full">
+        <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
+        <UserButton />
+      </div>
+      <Navbar />
       <h1 className="stadium-heading text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
         Stadium Booking
       </h1>
@@ -153,13 +169,13 @@ export default function page({ params }) {
                 <span className="mr-2">{slot.time}</span>
                 {slot.available ? (
                   <button
-                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-sm stadium-subheading book-button"
+                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-2xl stadium-subheading book-button"
                     onClick={() => bookSlot(slot.time)}
                   >
                     Book Now
                   </button>
                 ) : (
-                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-sm cursor-pointer stadium-subheading book-button">
+                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-2xl cursor-pointer stadium-subheading book-button">
                     Not Available
                   </span>
                 )}

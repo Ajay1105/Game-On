@@ -87,12 +87,8 @@ export default function page({ params }) {
   return (
     <div className="mx-auto">
     <Navbar/>
-      <div className="flex mt-8 mb-5 pr-20 justify-end w-full">
-        <p className=" font-medium text-xl mr-5">Welcome </p>
-        <UserButton />
-      </div>
-      <h1 className="text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
-        Admin Stadium
+      <h1 className="text-5xl md:text-8xlfont-bold mb-4 pt-8 w-full flex justify-center">
+        Admin Ground
       </h1>
       <div className="flex items-center justify-center mb-4 mt-10">
         <label htmlFor="date" className="mr-2 text-2xl">
@@ -119,14 +115,14 @@ export default function page({ params }) {
                 <span className="mr-2">{slot.time}</span>
                 {slot.available ? (
                   <button
-                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-sm"
+                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-2xl"
                     onClick={() => bookSlot(slot.time)}
                   >
                     Book Now
                   </button>
                 ) : (
-                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-sm cursor-pointer">
-                    Not Available
+                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-2xl cursor-pointer">
+                    Booked
                   </span>
                 )}
               </li>

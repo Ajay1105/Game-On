@@ -7,11 +7,15 @@ import User from '@/models/user.js';
 export async function createUser(user) {
   try {
     await connectDB();
-    console.log("inside createUser action");
-    const newUser = await User.create(user);
 
-    return JSON.parse(JSON.stringify(newUser));
+    const foundUser = await User.findOne({ email: user.email });
+
+    if(!foundUser){
+      const newUser = await User.create(user);
+      return JSON.parse(JSON.stringify(newUser));
+    }
+    return ;
   } catch (error) {
-    handleError(error);
+    console.log(error);
   }
 }

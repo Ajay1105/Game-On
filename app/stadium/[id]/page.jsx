@@ -4,6 +4,16 @@ import "./index.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UserButton } from "@clerk/nextjs";
+import React from "react";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 const page = ({ params }) => {
   const [stadiums, setStadiums] = useState({
@@ -12,6 +22,25 @@ const page = ({ params }) => {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum quas itaque esse in doloremque, soluta ipsa illum laboriosam suscipit officia, saepe eligendi. Quos exercitationem perferendis ipsam eligendi, corrupti soluta necessitatibus laboriosam, blanditiis esse quasi itaque perspiciatis praesentium eveniet modi molestiae deleniti maiores est minus, rem deserunt ab quod. Debitis voluptate excepturi officia totam veniam eveniet laboriosam magni aliquid maxime reprehenderit!",
   });
+
+  const gallery = [
+    {
+      src: "/assests/stadium_1.png",
+      alt: "stadium1",
+    },
+    {
+      src: "/assests/stadium_2.png",
+      alt: "stadium2",
+    },
+    {
+      src: "/assests/stadium_3.png",
+      alt: "stadium3",
+    },
+    {
+      src: "/assests/stadium_4.png",
+      alt: "stadium4",
+    },
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +69,10 @@ const page = ({ params }) => {
     router.push(`/stadium/book/${params.id}`);
   };
 
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true, waitForTransition: true })
+  );
+
   return (
     <div className="fullCard-container">
       <div className="inside">
@@ -47,15 +80,37 @@ const page = ({ params }) => {
           <p className=" font-medium text-xl mr-5">Welcome </p>
           <UserButton />
         </div>
-        {/* <img className="image" src="./stadium1.jpg" /> */}
+        {/* <img className="image" src="./stadium1.jpg" /> 
         <Image
           src="/cricket.jpg"
           alt="Picture of the author"
           width={600}
           height={300}
           className="image"
-        />
+        /> */}
+        <Carousel plugins={[plugin.current]} className="w-[100vw] md:w-[80vw]">
+          <CarouselContent>
+            {gallery.map((img, index) => (
+              <CarouselItem key={index}>
+                <div className="md:ml-32 p-1 w-[100vw] md:w-[60vw] flex justify-center items-center">
+                  <div className="w-[100vw] md:w-[30vw]">
+                    <CardContent className="flex aspect-square items-center relative justify-center p-0">
+                      <img src={img.src} alt={img.alt} className="w-[100vw] h-auto"/>
+                      <img src={"/icons/map.png"} alt={img.alt} className="border-2 border-black p-2 rounded-full mr-4 size-16 cursor-pointer z-10 absolute bottom-2 right-0" onClick={()=>{
+                        window.open('https://www.google.com/maps/place/Cricket+World+(+Box+Cricket+)/@31.3716745,75.5496146,17z/data=!3m1!4b1!4m6!3m5!1s0x391a518227210e19:0xc791bfca43093e14!8m2!3d31.3716745!4d75.5521895!16s%2Fg%2F11rmv38c2c?entry=ttu', '_blank')
+                      }}/>
+                    </CardContent>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
         <div className="stadium-info">
+          <p>
+            <span className="text-yellow-400 text-2xl italic">Open 24 hours</span> 
+          </p>
           <p>
             <b>Ground name</b> - Cricket world
           </p>
@@ -77,29 +132,22 @@ const page = ({ params }) => {
             <div className=" my-5 flex flex-wrap gap-4">
               <div>
                 <img
-                  src="../icons/box_cricket_icon.png"
-                  className="bg-white size-20 rounded-full ring-3"
-                />
-                <p>Box Cricket</p>
-              </div>
-              <div>
-                <img
                   src="../icons/parking_icon.jpg"
-                  className="bg-white size-20 rounded-full ring-3"
+                  className="bg-white size-16 md:size-20 rounded-full ring-3"
                 />
                 <p>Parking</p>
               </div>
               <div className="w-[5rem]">
                 <img
                   src="../icons/changing_room_icon.jpg"
-                  className="bg-white size-20 rounded-full ring-3"
+                  className="bg-white size-16 md:size-20 rounded-full ring-3"
                 />
                 <p className=" text-center">Changing Room</p>
               </div>
               <div>
                 <img
                   src="../icons/washroom_icon.png"
-                  className="bg-white size-20 rounded-full ring-3"
+                  className="bg-white size-16 md:size-20 rounded-full ring-3"
                 />
                 <p>Washroom</p>
               </div>
@@ -111,14 +159,14 @@ const page = ({ params }) => {
               <div>
                 <img
                   src="../icons/No_spitting_icon.webp"
-                  className="bg-white size-20 rounded-full ring-3"
+                  className="bg-white size-16 md:size-20 rounded-full ring-3"
                 />
                 <p>No Spitting</p>
               </div>
               <div>
                 <img
                   src="../icons/No_alcohol_icon.jpg"
-                  className="bg-white size-20 rounded-full ring-3"
+                  className="bg-white size-16 md:size-20 rounded-full ring-3"
                 />
                 <p>No Alcohol</p>
               </div>
