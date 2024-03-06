@@ -6,7 +6,7 @@ import User from "@/models/user.js";
 import connectDB from "../../mongodb/connectDB.js";
 
 export async function POST(request, Response) {
-  console.log("Webhook received");
+  console.log("Stripe Webhook received");
   const body = await request.text();
 
   const sig = request.headers.get("stripe-signature");
@@ -44,6 +44,9 @@ export async function POST(request, Response) {
       time: metadata?.time || 0,
       buyerId:  foundUser._id || "",
       createdAt: new Date(),
+      captainName: metadata?.captainName || "",
+      phoneNumber: metadata?.phoneNumber || "",
+      noOfPlayers: metadata?.noOfPlayers || "",
     };
 
     const newTransaction = await createTransaction(transaction);

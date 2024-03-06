@@ -24,7 +24,11 @@ export default function page({ params }) {
   const [bookedSlots, setBookedSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
+  const [isBooking, setIsBooking] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({});
+  const [captainName, setCaptainName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [numberOfPlayers, setNumberOfPlayers] = useState("");
   const { user, isSignedIn } = useUser();
 
   useEffect(() => {
@@ -67,7 +71,6 @@ export default function page({ params }) {
 
         await createUser(user2);
       }
-
     };
     create();
   }, [user]);
@@ -83,87 +86,170 @@ export default function page({ params }) {
   }, []);
 
   const bookSlot = (time) => {
-    onCheckout(time);
+    isBooking(true);
   };
 
   let email;
   if (isSignedIn) {
     email = user.emailAddresses[0].emailAddress;
   }
-  const onCheckout = async (time) => {
+  const onCheckout = async (time, price, event) => {
     const transaction = {
       plan: stadiumInfo.name,
       stadiumId: stadiumInfo._id,
-      amount: stadiumInfo.price,
+      amount: price,
       time:
         selectedDate +
         "T" +
         time.replace(" AM", ":00").replace(" PM", ":00") +
         ".000Z",
       email: email,
+      captainName: event.captainName,
+      phoneNumber: event.phoneNumber,
+      noOfPlayers: event.numberOfPlayers,
+
     };
     await checkoutCredits(transaction);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let price = min(1000, numberOfPlayers * 100);
+    onCheckout(time, price, event);
+  };
+
   return (
-    <div className="mx-auto">
-      <div className="flex mt-5 pr-12 md:pr-24 justify-end w-full">
-        <p className=" font-medium text-xl mr-5 stadium-subheading">Welcome </p>
-        <UserButton />
-      </div>
-      <Navbar />
-      <h1 className="stadium-heading text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
-        Stadium Booking
-      </h1>
-      <div className="stadium-details flex flex-col items-center gap-4 justify-center mb-4 mt-10">
-        <div className="taarik">
-          <label htmlFor="date" className="stadium-subheading mr-2 text-2xl">
-            Select Date:
-          </label>
-          <input
-            type="date"
-            id="date"
-            className="text-black px-5 py-2 rounded-sm cursor-pointer stadium-subheading"
-            onChange={handleDateChange}
-          />
-        </div>
-        <p className="stadium-subheading price text-xl font-medium">
-          Price: {stadiumInfo.price} per Hour
-        </p>
-      </div>
-      {selectedDate && (
-        <div className="flex justify-center items-center flex-col">
-          <h2 className="stadium-subheading text-2xl font-semibold mb-2 mt-5">
-            Available Slots at {selectedDate}
-          </h2>
-          <ul className="flex justify-start pl-20 mt-10 w-[85%] mx-auto flex-wrap gap-8 gap-y-10">
-            {availableSlots.map((slot, index) => (
-              <li key={index} className="flex items-center mb-2">
-                <span className="mr-2">{slot.time}</span>
-                {slot.available ? (
-                  <button
-                    className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-2xl stadium-subheading book-button"
-                    onClick={() => bookSlot(slot.time)}
-                  >
-                    Book Now
-                  </button>
-                ) : (
-                  <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-2xl cursor-pointer stadium-subheading book-button">
-                    Not Available
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <div className="flex justify-center align-middle my-20">
-        {isBooked && (
-          <p className="text-green-400 text-xl">
-            Your slot has been booked successfully
+    <div className="relative">
+      <div className="mx-auto">
+        <div className="flex mt-5 pr-12 md:pr-24 justify-end w-full">
+          <p className=" font-medium text-xl mr-5 stadium-subheading">
+            Welcome{" "}
           </p>
+          <UserButton />
+        </div>
+        <Navbar />
+        <h1 className="stadium-heading text-8xl font-bold mb-4 pt-8 w-full flex justify-center">
+          Stadium Booking
+        </h1>
+        <div className="stadium-details flex flex-col items-center gap-4 justify-center mb-4 mt-10">
+          <div className="taarik">
+            <label htmlFor="date" className="stadium-subheading mr-2 text-2xl">
+              Select Date:
+            </label>
+            <input
+              type="date"
+              id="date"
+              className="text-black px-5 py-2 rounded-sm cursor-pointer stadium-subheading"
+              onChange={handleDateChange}
+            />
+          </div>
+          <p className="stadium-subheading price text-xl font-medium">
+            Price: {stadiumInfo.price} per Hour
+          </p>
+        </div>
+        {selectedDate && (
+          <div className="flex justify-center items-center flex-col">
+            <h2 className="stadium-subheading text-2xl font-semibold mb-2 mt-5">
+              Available Slots at {selectedDate}
+            </h2>
+            <ul className="flex justify-start pl-20 mt-10 w-[85%] mx-auto flex-wrap gap-8 gap-y-10">
+              {availableSlots.map((slot, index) => (
+                <li key={index} className="flex items-center mb-2">
+                  <span className="mr-2">{slot.time}</span>
+                  {slot.available ? (
+                    <button
+                      className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-2xl stadium-subheading book-button"
+                      onClick={() => bookSlot(slot.time)}
+                    >
+                      Book Now
+                    </button>
+                  ) : (
+                    <span className="px-[5.2rem] font-semibold py-3 text-white transition-colors bg-red-500 hover:bg-red-700 rounded-2xl cursor-pointer stadium-subheading book-button">
+                      Not Available
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
+        <div className="flex justify-center align-middle my-20">
+          {isBooked && (
+            <p className="text-green-400 text-xl">
+              Your slot has been booked successfully
+            </p>
+          )}
+        </div>
       </div>
+      {
+        <div className="container absolute top-0 md:mx-8 h-fit md:h-[100vh] w-[100vw] flex items-center justify-center align-middle p-8 border-2 border-white">
+          <div className="flex flex-col h-fit w-fit">
+            <p className="text-3xl mb-6 font-semibold text-white">
+              Enter your details to book the slot
+            </p>
+            <p className="text-lg mb-6 font-semibold text-white">
+              <span className="text-red-500">NOTE: </span> You can book upto 20
+              players
+            </p>
+            <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+              <div className="mb-4">
+                <label
+                  htmlFor="captainName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Captain's Name
+                </label>
+                <input
+                  type="text"
+                  id="captainName"
+                  className="mt-1 p-2 w-full border-gray-300 rounded-2xl text-black"
+                  placeholder="Enter captain's name"
+                  value={captainName}
+                  onChange={(e) => setCaptainName(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="phoneNumber"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  className="mt-1 p-2 w-full border-gray-300 rounded-2xl text-black"
+                  placeholder="Enter phone number"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="numberOfPlayers"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Number of Players
+                </label>
+                <input
+                  type="number"
+                  id="numberOfPlayers"
+                  className="mt-1 p-2 w-full border-gray-300 rounded-2xl text-black"
+                  placeholder="Enter number of players"
+                  value={numberOfPlayers}
+                  onChange={(e) => setNumberOfPlayers(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600 transition duration-300"
+              >
+                Pay
+              </button>
+            </form>
+          </div>
+        </div>
+      }
     </div>
   );
 }

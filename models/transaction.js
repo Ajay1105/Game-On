@@ -7,6 +7,9 @@ const transaction =   new mongoose.Schema({
     stadiumId:{'type':mongoose.Schema.Types.ObjectId, 'ref':'Stadium'},
     amount:{'type':Number, 'required':true},
     time:{'type':Date},
+    captainName:{'type':String},
+    phoneNumber:{'type':String},
+    noOfPlayers:{'type':Number},
 });
 
 const Transaction = mongoose.models.Transaction || mongoose.model('Transaction', transaction);

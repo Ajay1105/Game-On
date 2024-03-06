@@ -28,6 +28,9 @@ export async function checkoutCredits(transaction) {
       stadiumId: transaction.stadiumId,
       time: transaction.time,
       email: transaction.email,
+      captainName: transaction.captainName,
+      phoneNumber: transaction.phoneNumber,
+      noOfPlayers: transaction.noOfPlayers,
     },
     mode: "payment",
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}?success=true`,
@@ -46,6 +49,9 @@ export async function createTransaction(transaction) {
       amount: transaction.amount,
       stadiumId: transaction.stadiumId,
       time: transaction.time,
+      captainName: transaction.captainName,
+      phoneNumber: transaction.phoneNumber,
+      noOfPlayers: transaction.noOfPlayers,
     });
 
     const stadium = await Stadium.findById(transaction.stadiumId);
