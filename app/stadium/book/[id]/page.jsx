@@ -76,33 +76,6 @@ export default function page({ params }) {
     const query = new URLSearchParams(window.location.search);
     if (query.get("success")) {
       alert("Your slot has been booked successfully");
-      // fetch(`/api/stadium/book`, {
-      //   method: "PATCH",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     id: params.id,
-      //     startTime:
-      //       selectedDate +
-      //       "T" +
-      //       time.replace(" AM", ":00").replace(" PM", ":00") +
-      //       ".000Z",
-      //     endTime:
-      //       selectedDate +
-      //       "T" +
-      //       time.replace(" AM", ":00").replace(" PM", ":00") +
-      //       ".000Z",
-      //   }),
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //     console.log("Booked for the slot");
-      //   });
-      // setIsBooked(true);
-
-      // setSelectedDate(null);
     }
     if (query.get("canceled")) {
       alert("Order canceled!");

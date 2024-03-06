@@ -5,7 +5,7 @@ export default authMiddleware({
   publicRoutes: ['/','/api/stadium', '/api/stadium/:id', '/api/stadium/book',"/api/webhook(.*)", '/api/webhook/stripe', '/api/webhook/clerk', '/api/admin/add'],
   // Routes that can always be accessed, and have
   // no authentication information
-  ignoredRoutes: ['/no-auth-in-this-route'],
+  ignoredRoutes: ['/','/api/stadium', '/api/stadium/:id', '/api/stadium/book',"/api/webhook(.*)", '/api/webhook/stripe', '/api/webhook/clerk', '/api/admin/add'],
 });
  
 export const config = {
