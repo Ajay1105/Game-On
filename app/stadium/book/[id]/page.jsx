@@ -23,6 +23,7 @@ export default function page({ params }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [bookedSlots, setBookedSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
+  const [time, setTime] = useState("")
   const [isBooked, setIsBooked] = useState(false);
   const [isBooking, setIsBooking] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({});
@@ -85,37 +86,39 @@ export default function page({ params }) {
     }
   }, []);
 
+  const handleSubmit = (event,time) => {
+    event.preventDefault();
+    const price = Math.max(1000, numberOfPlayers * 100);
+    onCheckout(price);
+  };
+
   const bookSlot = (time) => {
-    isBooking(true);
+    setIsBooking(true);
+    setTime(time);
   };
 
   let email;
   if (isSignedIn) {
     email = user.emailAddresses[0].emailAddress;
   }
-  const onCheckout = async (time, price, event) => {
+  const onCheckout = async ( price) => {
+    console.log(price);
     const transaction = {
       plan: stadiumInfo.name,
       stadiumId: stadiumInfo._id,
-      amount: price,
+      amount: price * 100,
       time:
         selectedDate +
         "T" +
         time.replace(" AM", ":00").replace(" PM", ":00") +
         ".000Z",
       email: email,
-      captainName: event.captainName,
-      phoneNumber: event.phoneNumber,
-      noOfPlayers: event.numberOfPlayers,
+      captainName: captainName,
+      phoneNumber: phoneNumber,
+      noOfPlayers: numberOfPlayers,
 
     };
     await checkoutCredits(transaction);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let price = min(1000, numberOfPlayers * 100);
-    onCheckout(time, price, event);
   };
 
   return (
@@ -181,7 +184,7 @@ export default function page({ params }) {
           )}
         </div>
       </div>
-      {
+      { isBooking &&
         <div className="container absolute top-0 md:mx-8 h-fit md:h-[100vh] w-[100vw] flex items-center justify-center align-middle p-8 border-2 border-white">
           <div className="flex flex-col h-fit w-fit">
             <p className="text-3xl mb-6 font-semibold text-white">
