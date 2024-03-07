@@ -61,34 +61,9 @@ export async function createTransaction(transaction) {
     });
     await stadium.save();
 
-    fetch(`/api/stadium/book`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: transaction.stadiumId,
-          startTime:
-            selectedDate +
-            "T" +
-            transaction.time.replace(" AM", ":00").replace(" PM", ":00") +
-            ".000Z",
-          endTime:
-            selectedDate +
-            "T" +
-            transaction.time.replace(" AM", ":00").replace(" PM", ":00") +
-            ".000Z",
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          console.log("Booked for the slot");
-        });
-
-        const user = await User.findById(transaction.buyerId);
-        user.bookedSlots.push(newTransaction._id);
-        user.save();
+    const user = await User.findById(transaction.buyerId);
+    user.bookedSlots.push(newTransaction._id);
+    await user.save();
 
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
