@@ -62,7 +62,10 @@ export async function createTransaction(transaction) {
     await stadium.save();
 
     const user = await User.findById(transaction.buyerId);
-    user.bookedSlots.push(newTransaction._id);
+    if(!user){
+      return JSON.stringify("No user found");
+    }
+    user.bookedSlot.push(newTransaction._id);
     await user.save();
 
     return JSON.parse(JSON.stringify(newTransaction));

@@ -6,7 +6,7 @@ const user =   new mongoose.Schema({
     email:{'type':String, 'required':true},
     bookedSlot:[{
         'type':mongoose.Schema.Types.ObjectId,
-        'ref':'Slot'
+        'ref':'Transaction'
     }]
 });
 
