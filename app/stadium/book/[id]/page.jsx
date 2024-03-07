@@ -62,19 +62,7 @@ export default function page({ params }) {
     );
   };
 
-  useEffect(() => {
-    const create = async () => {
-      if (user) {
-        const user2 = {
-          email: user.emailAddresses[0].emailAddress,
-          name: user.fullName,
-        };
-
-        await createUser(user2);
-      }
-    };
-    create();
-  }, [user]);
+  
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);

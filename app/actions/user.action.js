@@ -10,11 +10,11 @@ export async function createUser(user) {
 
     const foundUser = await User.findOne({ email: user.email });
 
-    if(!foundUser){
-      const newUser = await User.create(user);
-      return JSON.parse(JSON.stringify(newUser));
+    if(foundUser){
+      return JSON.stringify("User already exists");
     }
-    return ;
+    const newUser = await User.create(user);
+    return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     console.log(error);
   }
