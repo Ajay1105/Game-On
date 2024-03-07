@@ -5,6 +5,7 @@ import User from '@/models/user.js';
 
 // CREATE
 export async function createUser(user) {
+  console.log("inside createUser")
   try {
     await connectDB();
 
@@ -14,6 +15,7 @@ export async function createUser(user) {
       return JSON.stringify("User already exists");
     }
     const newUser = await User.create(user);
+    console.log("newUser", newUser);
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     console.log(error);
