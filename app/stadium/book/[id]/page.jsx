@@ -88,7 +88,7 @@ export default function page({ params }) {
 
   const handleSubmit = (event,time) => {
     event.preventDefault();
-    const price = Math.max(1000, numberOfPlayers * 100);
+    const price = Math.max(1000, numberOfPlayers);
     onCheckout(price);
   };
 
@@ -102,7 +102,6 @@ export default function page({ params }) {
     email = user.emailAddresses[0].emailAddress;
   }
   const onCheckout = async ( price) => {
-    console.log(price);
     const transaction = {
       plan: stadiumInfo.name,
       stadiumId: stadiumInfo._id,

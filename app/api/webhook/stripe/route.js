@@ -37,6 +37,9 @@ export async function POST(request, Response) {
       return NextResponse.json({ message: "User not found", error: error });
     }
 
+    try {
+      
+    
     const transaction = {
       stripeId: id,
       amount: amount_total/100 ,
@@ -52,6 +55,9 @@ export async function POST(request, Response) {
     const newTransaction = await createTransaction(transaction);
     
     return NextResponse.json({ message: "OK", transaction: newTransaction });
+  } catch (error) {
+    return NextResponse.json({ message: "error", err: error });  
+  }
   }
 
   return new Response("", { status: 200 });
