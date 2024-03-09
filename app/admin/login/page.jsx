@@ -22,8 +22,10 @@ export default function LoginPage() {
       }),
     });
     const data = await response.json();
+    console.log(data);
     if (response.ok) {
       const userId = data.message;
+      localStorage.setItem('token', data.token);
       const redirectUrl = `/admin/${userId}`;
       router.push(redirectUrl);
     } else {

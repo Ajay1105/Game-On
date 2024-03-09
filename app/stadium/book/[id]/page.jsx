@@ -86,7 +86,7 @@ export default function page({ params }) {
     }
   }, []);
 
-  const handleSubmit = (event,time) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const price = Math.max(1000, numberOfPlayers);
     onCheckout(price);

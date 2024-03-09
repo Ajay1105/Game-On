@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="navbar">
         <div className="logo">
             <a href='/'>
-            <Image src="/logo.png" alt="logo" width={200} height={200} />
+            <Image src="/logo.png" alt="logo" width={200} height={200} priority={true}/>
             </a>
         </div>
 
