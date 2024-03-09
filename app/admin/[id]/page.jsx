@@ -21,10 +21,11 @@ export default function page({ params }) {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({ price: 0 });
-  const [isBooking, setIsBooking] = useState(true);
+  const [isBooking, setIsBooking] = useState(false);
   const [captainName, setCaptainName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [numberOfPlayers, setNumberOfPlayers] = useState("");
+  const [time, setTime] = useState("")
 
   useEffect(() => {
     const checkToken = async () => {
@@ -89,6 +90,11 @@ export default function page({ params }) {
   };
 
   const bookSlot = (time) => {
+    setIsBooking(true);
+    setTime(time);
+  };
+
+  const onCheckout = (price) => {
     fetch(`/api/stadium/book`, {
       method: "PATCH",
       headers: {
@@ -106,6 +112,9 @@ export default function page({ params }) {
           "T" +
           time.replace(" AM", ":00").replace(" PM", ":00") +
           ".000Z",
+        captainName: captainName,
+        phoneNumber: phoneNumber,
+        noOfPlayers: numberOfPlayers,
       }),
     })
       .then((res) => res.json())
@@ -114,6 +123,7 @@ export default function page({ params }) {
         console.log("Booked for the slot");
       });
     setIsBooked(true);
+    setIsBooking(false);
     setSelectedDate(null);
   };
 
