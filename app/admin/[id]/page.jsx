@@ -22,10 +22,7 @@ export default function page({ params }) {
   const [isBooked, setIsBooked] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({ price: 0 });
   const [isBooking, setIsBooking] = useState(false);
-  const [captainName, setCaptainName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [numberOfPlayers, setNumberOfPlayers] = useState("");
-  const [time, setTime] = useState("")
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     const checkToken = async () => {
@@ -112,9 +109,9 @@ export default function page({ params }) {
           "T" +
           time.replace(" AM", ":00").replace(" PM", ":00") +
           ".000Z",
-        captainName: captainName,
-        phoneNumber: phoneNumber,
-        noOfPlayers: numberOfPlayers,
+        captainName: "Booked by admin",
+        phoneNumber: -1,
+        noOfPlayers: -1,
       }),
     })
       .then((res) => res.json())
@@ -125,12 +122,6 @@ export default function page({ params }) {
     setIsBooked(true);
     setIsBooking(false);
     setSelectedDate(null);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const price = Math.max(1000, numberOfPlayers);
-    onCheckout(price);
   };
 
   return (
@@ -189,71 +180,18 @@ export default function page({ params }) {
         </div>
       </div>
       {isBooking && (
-        <div className="container absolute top-0 md:mx-8 h-fit md:h-[100vh] w-[100vw] flex items-center justify-center align-middle p-8 border-2 border-white">
-          <div className="flex flex-col h-fit w-fit">
-            <p className="text-3xl mb-6 font-semibold text-white">
-              Enter your details to book the slot
-            </p>
-            <p className="text-lg mb-6 font-semibold text-white">
-              <span className="text-red-500">NOTE: </span> You can book upto 20
-              players
-            </p>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-              <div className="mb-4">
-                <label
-                  htmlFor="captainName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Captain's Name
-                </label>
-                <input
-                  type="text"
-                  id="captainName"
-                  className="mt-1 p-2 w-full border-gray-300 rounded-2xl text-black"
-                  placeholder="Enter captain's name"
-                  value={captainName}
-                  onChange={(e) => setCaptainName(e.target.value)}
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="phoneNumber"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  className="mt-1 p-2 w-full border-gray-300 rounded-2xl text-black"
-                  placeholder="Enter phone number"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="numberOfPlayers"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Number of Players
-                </label>
-                <input
-                  type="number"
-                  id="numberOfPlayers"
-                  className="mt-1 p-2 w-full border-gray-300 rounded-2xl text-black"
-                  placeholder="Enter number of players"
-                  value={numberOfPlayers}
-                  onChange={(e) => setNumberOfPlayers(e.target.value)}
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600 transition duration-300"
-              >
-                Pay
-              </button>
-            </form>
+        <div className="container absolute top-10 md:left-10 md:mx-8 h-fit md:h-[90vh] w-[100vw] flex items-center justify-center align-middle p-8 border-2 border-white">
+          <p className="text-red-500 absolute right-10 top-10 text-2xl font-extrabold" onClick={()=>setIsBooking(false)}>X</p>
+          <div className="flex flex-col items-center mt-10 justify-center align-middle">
+            <h2 className="text-2xl font-semibold mb-2">
+              Confirm Booking for {time} on {selectedDate}
+            </h2>
+            <button
+              className="px-[6rem] font-semibold py-3 cursor-pointer transition-colors bg-green-500 hover:bg-green-700 text-white rounded-2xl mt-5"
+              onClick={() => onCheckout(stadiumInfo.price)}
+            >
+              Checkout
+            </button>
           </div>
         </div>
       )}

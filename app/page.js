@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import { CardContent } from "@/components/ui/card";
 import { gallery } from "@/lib/constants";
+import Footer from "@/components/Footer/Footer.jsx";
 
 export default function Home() {
   const [stadiums, setStadiums] = useState([]);
@@ -45,8 +46,8 @@ export default function Home() {
 
   return (
     <div>
+    <Navbar />
       <div className="container">
-        <Navbar />
         <div className="card-container">
           {/*stadiums.map((stadium) => (
       <Card key={stadium.id} heading={stadium.name} id={stadium._id} location={stadium.location}/>
@@ -82,7 +83,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col items-center justify-center w-full">
-        <p className=" text-3xl italic mb-20">Previous Events</p>
+        <p className="mt-12 text-yellow-500 text-3xl italic mb-20">Previous Events</p>
         <Carousel plugins={[plugin.current]} className="w-[65vw] md:w-[80vw]">
           <CarouselContent>
             {gallery.map((img, index) => (
@@ -101,6 +102,7 @@ export default function Home() {
           <CarouselNext />
         </Carousel>
       </div>
+      <Footer />
     </div>
   );
 }
