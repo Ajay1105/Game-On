@@ -16,7 +16,7 @@ const Contact = () => {
               <span className="font-bold ">Email:</span> <span className="font-light">help@gameon.com</span>
             </p>
             <p className="mb-4 number">
-              <span className="font-bold ">Contact No:</span> <span className="font-light">+91 2434890983</span>
+              <span className="font-bold ">Contact No:</span> <span className="font-light">+918896172818</span>
             </p>
           </div>
         </div>

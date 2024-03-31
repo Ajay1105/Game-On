@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className="flex flex-col justify-center text-center mt-8 pt-4 border-t-2 border-white">
     <div className="flex md:flex-row flex-col gap-4 justify-center">
-    <p className="text-xl">+91 2434890983</p>
+    <p className="text-xl">+918896172818</p>
     <p className="text-xl">help@gameon.com</p>
     </div>
       <div className=" flex flex-row justify-center gap-8 my-4">

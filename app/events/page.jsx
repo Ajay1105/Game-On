@@ -57,9 +57,11 @@ const page = () => {
         <h2 className="text-3xl md:text-5xl mt-8 font-medium text-yellow-600">
           Box <span className="text-white">Cricket</span> Tournament
         </h2>
+        <a href="https://forms.gle/CUbniiop7n811Y6a8" target="_blank">
         <button className="px-8 py-4 rounded-3xl mt-7 bg-orange-700 text-white hover:bg-orange-400">
-          Register Now
+        Register Now
         </button>
+        </a>
       </div>
       <Footer />
     </div>
