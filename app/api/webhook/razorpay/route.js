@@ -5,7 +5,7 @@ export async function POST(req, res){
     const body = await req.json();
 
     console.log(body);
-    return NextResponse.json({message: "Hello World"});
+    return NextResponse.json({status:200});
 }
 
 export async function GET(req, res){
