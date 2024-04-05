@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { createTransaction } from "@/app/actions/transaction.action";
-import { User } from "@clerk/nextjs/dist/types/server";
+import User from "../../mongodb/models/user.model";
 import connectDB from "../../mongodb/connectDB";
 
 export async function POST(req, res){
@@ -25,6 +25,7 @@ export async function POST(req, res){
     try {
       await connectDB();
       foundUser = await User.findOne({ email });
+      console.log(foundUser);
     } catch (error) {
       return NextResponse.json({ message: "User not found", error: error });
     }
