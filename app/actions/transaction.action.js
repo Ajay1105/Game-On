@@ -40,21 +40,6 @@ export async function checkoutCredits(transaction) {
   redirect(session.url);
 }
 
-export async function razorpayPayment(transaction) {
-  var instance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY,
-    key_secret: process.env.RAZORPAY_SECRET_ID,
-  });
-  var options = {
-    amount: 50000,  // amount in the smallest currency unit
-    currency: "INR",
-    receipt: "order_rcptid_11"
-  };
-  instance.orders.create(options, function(err, order) {
-    console.log(order);
-  });
-}
-
 export async function createTransaction(transaction) {
   try {
     console.log("Creating transaction", transaction);

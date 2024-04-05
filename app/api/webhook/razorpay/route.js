@@ -1,10 +1,12 @@
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req, res){
     const secret = process.env.WEBHOOK_RAZORPAY_SECRET;
     const body = await req.json();
+    const headersList = headers()
 
-    console.log(body.payload,body.payload.payment, body.payload.payment.entity);
+    console.log(body, headersList);
     return NextResponse.json({status:200});
 }
 

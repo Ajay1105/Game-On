@@ -23,7 +23,7 @@ export default function page({ params }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [bookedSlots, setBookedSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
-  const [time, setTime] = useState("")
+  const [time, setTime] = useState("");
   const [isBooked, setIsBooked] = useState(false);
   const [isBooking, setIsBooking] = useState(false);
   const [stadiumInfo, setstadiumInfo] = useState({});
@@ -31,6 +31,72 @@ export default function page({ params }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [numberOfPlayers, setNumberOfPlayers] = useState("");
   const { user, isSignedIn } = useUser();
+
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  const makePayment = async (transaction) => {
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    // Make API call to the serverless API
+    const data = await fetch("/api/razorpay", {
+      method: "POST",
+      body: JSON.stringify({ amount: transaction.amount }),
+    }).then((t) => t.json());
+
+    console.log(data);
+
+    var options = {
+      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+      name: "Game on",
+      currency: data.currency,
+      amount: data.amount,
+      order_id: data.id,
+      description: "Thankyou for your test donation",
+      image: "./logo2.png",
+      handler: function (response) {
+        // Validate payment at server - using webhooks is a better idea.
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+      },
+      prefill: {
+        name: transaction.captainName,
+        email: transaction.email,
+        contact: transaction.phoneNumber,
+      },
+      notes: {
+        stadiumId: transaction.stadiumId,
+        amount: transaction.amount,
+        time: transaction.time,
+        email: transaction.email,
+        captainName: transaction.captainName,
+        phoneNumber: transaction.phoneNumber,
+        noOfPlayers: transaction.numberOfPlayers,
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
 
   useEffect(() => {
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -52,7 +118,7 @@ export default function page({ params }) {
         const slotTime = slot.time.replace(" AM", ":00").replace(" PM", ":00");
         return {
           time: slot.time,
-          available: !bookedSlots.some(
+          available: !bookedSlots?.some(
             (bookedSlot) =>
               bookedSlot.startTime ===
               event.target.value + "T" + slotTime + ".000Z"
@@ -88,7 +154,7 @@ export default function page({ params }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const price = Math.max(1000, numberOfPlayers);
+    const price = Math.max(1000, 1000 + ((numberOfPlayers-5)*100));
     onCheckout(price);
   };
 
@@ -101,11 +167,11 @@ export default function page({ params }) {
   if (isSignedIn) {
     email = user.emailAddresses[0].emailAddress;
   }
-  const onCheckout = async ( price) => {
+  const onCheckout = async (price) => {
     const transaction = {
       plan: stadiumInfo.name,
       stadiumId: stadiumInfo._id,
-      amount: price * 100,
+      amount: price ,
       time:
         selectedDate +
         "T" +
@@ -115,9 +181,8 @@ export default function page({ params }) {
       captainName: captainName,
       phoneNumber: phoneNumber,
       noOfPlayers: numberOfPlayers,
-
     };
-    await checkoutCredits(transaction);
+    await makePayment(transaction);
   };
 
   return (
@@ -183,7 +248,7 @@ export default function page({ params }) {
           )}
         </div>
       </div>
-      { isBooking &&
+      {isBooking && (
         <div className="container absolute top-0 md:mx-8 h-fit md:h-[100vh] w-[100vw] flex items-center justify-center align-middle p-8 border-2 border-white">
           <div className="flex flex-col h-fit w-fit">
             <p className="text-3xl mb-6 font-semibold text-white">
@@ -251,7 +316,7 @@ export default function page({ params }) {
             </form>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }
