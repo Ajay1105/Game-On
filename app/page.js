@@ -70,6 +70,10 @@ export default function Home() {
         email: "manuarorawork@gmail.com",
         contact: "9999999999",
       },
+      notes: {
+        time:"avengers"
+        
+      }
     };
 
     const paymentObject = new window.Razorpay(options);
