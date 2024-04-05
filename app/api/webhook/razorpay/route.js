@@ -4,7 +4,7 @@ export async function POST(req, res){
     const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
     const body = await req.json();
 
-    console.log(body);
+    console.log(body,secret);
     return NextResponse.json({status:200});
 }
 
