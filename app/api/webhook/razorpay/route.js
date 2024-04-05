@@ -4,9 +4,9 @@ import { NextResponse } from "next/server";
 export async function POST(req, res){
     const secret = process.env.WEBHOOK_RAZORPAY_SECRET;
     const body = await req.json();
-    const headersSignature = headers('x-razorpay-signature')
+    const headersList= headers()
 
-    console.log(headersSignature);
+    console.log(headersList.get('x-razorpay-signature'));
     return NextResponse.json({status:200});
 }
 
