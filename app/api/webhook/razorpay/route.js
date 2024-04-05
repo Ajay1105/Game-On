@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { createTransaction } from "@/app/actions/transaction.action";
-import User from "../../mongodb/models/user.model";
+import User from "@/models/user.js";
 import connectDB from "../../mongodb/connectDB";
 
 export async function POST(req, res){
