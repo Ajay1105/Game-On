@@ -6,6 +6,7 @@ import connectDB from "../api/mongodb/connectDB.js";
 import Transaction from "@/models/transaction.js";
 import Stadium from "@/models/stadium.js";
 import User from "@/models/user.js";
+import Razorpay from "razorpay";
 
 export async function checkoutCredits(transaction) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -37,6 +38,21 @@ export async function checkoutCredits(transaction) {
   });
 
   redirect(session.url);
+}
+
+export async function razorpayPayment(transaction) {
+  var instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY,
+    key_secret: process.env.RAZORPAY_SECRET_ID,
+  });
+  var options = {
+    amount: 50000,  // amount in the smallest currency unit
+    currency: "INR",
+    receipt: "order_rcptid_11"
+  };
+  instance.orders.create(options, function(err, order) {
+    console.log(order);
+  });
 }
 
 export async function createTransaction(transaction) {
