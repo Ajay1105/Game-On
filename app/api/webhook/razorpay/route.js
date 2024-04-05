@@ -6,7 +6,7 @@ export async function POST(req, res){
     const body = await req.json();
     const headersList = headers()
 
-    console.log(body, headersList);
+    console.log(headersList.x-razorpay-signature, headersList.x-razorpay-signature?.value );
     return NextResponse.json({status:200});
 }
 
