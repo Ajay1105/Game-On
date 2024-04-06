@@ -41,8 +41,9 @@ export async function checkoutCredits(transaction) {
 }
 
 export async function createTransaction(transaction) {
+  console.log("Creating transaction", transaction);
   try {
-    console.log("Creating transaction", transaction);
+    console.log("inside try-catch transaction BLOCK");
     await connectDB();
 
     const newTransaction = await Transaction.create({
