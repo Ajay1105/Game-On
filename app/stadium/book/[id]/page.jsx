@@ -103,7 +103,7 @@ export default function page({ params }) {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/stadium/${params.id}`)
+    fetch(`/api/stadium/admin/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
         setstadiumInfo(data);
@@ -168,6 +168,7 @@ export default function page({ params }) {
     email = user.emailAddresses[0].emailAddress;
   }
   const onCheckout = async (price) => {
+    console.log("stadium info", stadiumInfo)
     const transaction = {
       plan: stadiumInfo.name,
       stadiumId: stadiumInfo._id,

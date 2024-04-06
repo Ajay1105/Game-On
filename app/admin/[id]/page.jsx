@@ -53,7 +53,7 @@ export default function page({ params }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`/api/stadium/${params.id}`, {
+        const response = await fetch(`/api/stadium/admin/${params.id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
