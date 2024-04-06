@@ -29,8 +29,9 @@ export async function POST(req, res){
     } catch (error) {
       return NextResponse.json({ message: "User not found", error: error });
     }
-
-    try {
+console.log("outside of User found");
+try {
+      console.log("inside of try-catch");
       
         const transaction = {
           amount: body.payload.payment.entity.amount/100 ,
