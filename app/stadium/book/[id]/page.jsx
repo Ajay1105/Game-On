@@ -103,10 +103,10 @@ export default function page({ params }) {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/stadium/admin/${params.id}`)
+    fetch(`/api/stadium/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
-        setstadiumInfo(data);
+        setstadiumInfo(data.stadium);
         setBookedSlots(data.bookedSlots);
       });
   }, [isBooked, params.id, selectedDate]);
@@ -168,21 +168,22 @@ export default function page({ params }) {
     email = user.emailAddresses[0].emailAddress;
   }
   const onCheckout = async (price) => {
-    console.log("stadium info", stadiumInfo)
     const transaction = {
       plan: stadiumInfo.name,
       stadiumId: stadiumInfo._id,
       amount: price ,
       time:
-        selectedDate +
-        "T" +
-        time.replace(" AM", ":00").replace(" PM", ":00") +
-        ".000Z",
+      selectedDate +
+      "T" +
+      time.replace(" AM", ":00").replace(" PM", ":00") +
+      ".000Z",
       email: email,
       captainName: captainName,
       phoneNumber: phoneNumber,
       noOfPlayers: numberOfPlayers,
     };
+    console.log("stadiumInfo ", stadiumInfo)
+    console.log("transaction ", transaction)
     await makePayment(transaction);
   };
 
