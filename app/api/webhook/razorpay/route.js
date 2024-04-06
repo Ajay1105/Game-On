@@ -31,6 +31,8 @@ export async function POST(req, res) {
   }
   console.log("outside of User found");
   try {
+    console.log("inside of try-catch");
+
     const transaction = {
       amount: body.payload.payment.entity.amount / 100,
       stadiumId: body.payload.payment.entity.notes?.stadiumId || "",
@@ -44,9 +46,8 @@ export async function POST(req, res) {
       noOfPlayers: body.payload.payment.entity.notes?.noOfPlayers || "",
     };
 
-    console.log("inside of try-catch");
+    console.log("inside of try-catch2", transaction);
     await createTransaction(transaction);
-    
   } catch (error) {
     return NextResponse.json({ message: "error", err: error });
   }
