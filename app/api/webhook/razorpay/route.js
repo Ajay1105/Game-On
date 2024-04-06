@@ -36,9 +36,7 @@ export async function POST(req, res) {
     const transaction = {
       amount: body.payload.payment.entity.amount / 100,
       stadiumId: body.payload.payment.entity.notes?.stadiumId || "",
-      time:
-        body.payload.payment.entity.notesbody.payload.payment.entity.notes
-          ?.time || 0,
+      time: body.payload.payment.entity.notes?.time || 0,
       buyerId: foundUser._id || "",
       createdAt: new Date(),
       captainName: body.payload.payment.entity.notes?.captainName || "",
