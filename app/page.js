@@ -70,7 +70,7 @@ export default function Home() {
         <img
           src="./icons/football.png"
           alt="football"
-          className="size-[50%] md:w-1/4 md:h-1/4"
+          className="size-[50%] md:w-1/4 md:h-1/4 hover:animate-bounce mt-6 md:mt-12"
         />
         <p className="text-2xl mt-10 font-medium italic text-justify">
           {" "}

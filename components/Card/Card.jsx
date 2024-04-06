@@ -11,7 +11,7 @@ const Card = ({ heading, id, location }) => {
   
   return (
     <div className="card">
-      <img src={"./cricket.jpg"} alt="stadium" onClick={handleClick} className=" h-80 w-80"/>
+      <img src={"./cricket.jpg"} alt="stadium" onClick={handleClick} className="cursor-pointer hover:shadow-lg hover:shadow-white hover:filter hover:grayscale h-80 w-80"/>
       <div className="heading">{heading}</div>
       <div className="sub-heading">{location}</div>
     </div>
